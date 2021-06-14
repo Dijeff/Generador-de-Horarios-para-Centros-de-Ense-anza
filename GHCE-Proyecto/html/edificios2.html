@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript" src="vue.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px 0 10px 0;
+      padding-right: 10%;
+      overflow: hidden;
+      background-color: #00796b;
+      width: 100%;
+    }
+
+    li {
+      float: left;
+      padding-left: 9%;
+    }
+
+    li a,
+    .dropbtn {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover,
+    .dropdown:hover .dropbtn {
+      font-size: 20px;
+    }
+
+    li.dropdown {
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #374c56;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .contenido {
+      padding: 0% 10% 0% 10%
+    }
+
+    .encabezado {
+      background-color: #24333a;
+      height: 150px;
+      text-align: center;
+      color: white;
+      font-size: 40px;
+      padding: 40px;
+    }
+
+    .BotonCirculo1 {
+      background: #00796B;
+      padding: 0.5% 1.5% 0.5% 1.5%;
+      font-variant: small-caps;
+      text-align: center;
+      font-family: Arial;
+      border-style: none;
+      border-radius: 50%;
+      font-size: 25px;
+      color: white;
+    }
+  </style>
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+
+      <template>
+
+
+        <ul>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn" style="color:white">DISTRIBUCIÓN</a>
+            <div class="dropdown-content">
+              <a onclick="location.href='edificios2.html'" style="color:white">Edificios y aulas</a>
+              <a onclick="location.href='grupos.html'" style="color:white">Grupos</a>
+            </div>
+          </li>
+          <li class="dropdown" style="float:right">
+            <a href="javascript:void(0)" class="dropbtn" style="color:white">CUENTA</a>
+            <div class="dropdown-content">
+              <a style="color:white" onclick="location.href='Login.html'">Cerrar Seccíon</a>
+            </div>
+          </li>
+        </ul>
+
+
+
+
+
+
+        <div class="contenido">
+          <div class="encabezado">Edificios</div>
+
+          <h1 style="margin: 50px 0px 50px 0px; padding-right: 10px;">Edificios <button @click="dialog = !dialog"
+              class="BotonCirculo1"><i class="fas fa-stopwatch">+</i></button></h1>
+             
+          <v-container grid-list-xl style="margin-left: 2%" white--text>
+            <v-layout row wrap>
+              <v-flex md4 v-for="data in all_data ">
+
+
+
+
+
+                <v-card class="mx-right " max-width="300" dark>
+                  
+                 <a v-bind:href="'aulas.html?id='+ data.cod_edificio+'&id2='+data.descripcion"> <v-img class="white--text align-end" height="200px" v-bind:src="'../img/'+ data.foto">
+                    <v-card-title></v-card-title>
+                  </v-img></a>
+
+                  <v-card-subtitle class="pb-0">
+
+                  </v-card-subtitle>
+
+                  <v-card-text class="white--text " >
+                  
+                    <div>Nombre Edificio: {{data.descripcion}} </div>
+                    <div>Ubicación:  {{data.ubicacion}}</div>
+                    <div>Numero de aulas:  {{data.num_aulas}}</div>
+                    <div>Pisos:{{data.pisos}}</div>
+                    <div   >
+                      <p   style="margin: 0px;">Estado: 
+                      
+                            <label v-if="data.estado==0" class="switch"  style="float: right; margin: 0px;">
+  <input type="checkbox" v-on:change="activado(data.cod_edificio)" >
+  <span class="slider round"></span>
+</label>
+
+     <label v-if="data.estado==1" class="switch"  style="float: right; margin: 0px;">
+  <input type="checkbox" v-on:change="activado(data.cod_edificio)" checked>
+  <span class="slider round"></span>
+</label>
+                      </p>
+                    </div>
+                  </v-card-text>
+                </v-card>
+
+
+              </v-flex>
+            </v-layout>
+          </v-container>
+
+
+        </div>
+
+
+        <!--  Modal del diÃ¡logo para Alta y Edicion    -->
+        <v-dialog v-model="dialog" max-width="500px">
+          <template v-slot:activator="{ on }"></template>
+
+          <v-card>
+               <form action="../php/subirimg.php" method="POST" enctype="multipart/form-data">
+            <v-card-title style="background-color: #00796B;color:white;">
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+
+                  <div class=" row w-100 align-items-center">
+                    <div class="col text-center">
+                     
+                      <v-text-field color="purple darken-2"  v-model="editado.nombre" label="Nombre:" required></v-text-field>
+                      <v-text-field color="purple darken-2"  v-model="editado.ubicacion" label="Ubicación:" required></v-text-field>
+                      <v-text-field color="purple darken-2"  v-model="editado.cantidad" label="Cantidad de aulas:" required></v-text-field>
+                      <v-text-field color="purple darken-2"   v-model="editado.pisos" label="Pisos:" required></v-text-field>
+
+                      <div>
+                        <p style=" width: 100%; text-align: left;margin: 0px;padding: 0px; ">Estado:<v-switch
+                             v-model="estadoji" color="info" value="1"  hide-details style=" float: right;  margin: 0px;">
+                          </v-switch>
+                        </p>
+                      </div>
+                      <div>
+                        
+                          <input v-model="editado.foto" type="file"  name="file" id="file"/>
+                      
+                      </div>
+                    </div>
+                  </div>
+
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue-grey"  class="ma-2 white--text" @click="dialog = !dialog">Cancelar</v-btn>
+              <v-btn color="teal accent-4" type="submit" class="ma-2 white--text" @click="guardar">Guardar</v-btn>
+             
+            </v-card-actions>
+             </form>
+          </v-card>
+        </v-dialog>
+        
+        
+
+        <v-footer style="margin-top: 50px; background-color: #253339; height: 100px; margin-top:50px">
+          <v-row justify="center">
+
+            <v-col class=" text-center white--text" cols="12">
+              {{ new Date().getFullYear() }} — <strong>Administración y Programación de Sitios Web CUC </strong>
+            </v-col>
+          </v-row>
+        </v-footer>
+      </template>
+      <template>
+        <div class="text-center ma-2">
+          <v-snackbar v-model="snackbar">
+            {{ textSnack }}
+            <v-btn color="info" text @click="snackbar = false">Cerrar</v-btn>
+          </v-snackbar>
+        </div>
+      </template>
+
+
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <!--Axios -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../js/edificioApp.js"></script>
+  <script>
+  document.getElementById('image1').onchange = function () {
+    console.log(this.value);
+    document.getElementById('image1').files.name = document.getElementById('image1').files[0].name;
+  }
+
+  document.getElementById('hola').onclick = function () {
+    
+    var str = document.getElementById("hola").value;
+  
+  console.log(str);
+  
+  }
+ 
+  </script>
+
+
+
+</body>
+
+</html>
+
+ 
+ 

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>APSW C3-2020</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" type="text/css" href="../css/oferta.css" />
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <template>
+        <ul>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn" style="color:white">Oferta Academica</a>
+
+          </li>
+          <li class="dropdown" style="float:right">
+            <a href="javascript:void(0)" class="dropbtn" style="color:white">CUENTA</a>
+            <div class="dropdown-content">
+              <a style="color:white" onclick="location.href='Login.html'">Cerrar Seccíon</a>
+            </div>
+          </li>
+        </ul>
+
+        <div class="contenido">
+          <div class="encabezado">Oferta académica</div>
+          <br>
+          <h1>Oferta académica </h1> <button @click="dialog = !dialog" class="BotonCirculo1"><i
+              class="fas fa-stopwatch">+</i></button>
+          <br>
+          <div>
+             <v-container grid-list-xl>
+                <v-layout row wrap>
+                    <v-simple-table class="tabla">
+                      <template>
+                        <thead>
+                          <tr>
+                            <th>Oferta Académica</th>
+                            <th>Fecha Inicial</th>
+                            <th>Fecha Final</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="item in ofertas" :key="item.oferta">
+        
+                            <td>{{item.nombre}}</td>
+                            <td>{{item.fecha_inicio}}</td>
+                            <td>{{item.fecha_fin}}</td>
+                          </tr>
+                        </tbody>
+        
+                      </template>
+                    </v-simple-table>
+                    </v-layout>
+                  </v-container>
+          </div>
+        </div>
+          <v-container grid-list-xl>
+            <v-layout row wrap>
+                <v-dialog v-model="dialog" max-width="800px">
+                  <template v-slot:activator="{ on }"></template>
+                  <v-card>
+                    <v-card-title style="background-color: #00796B;color:white;">
+                      <span class="headline">Crear Oferta Academica</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <form action="../php/conexion2.php" method="POST" enctype="multipart/form-data">
+                          <h2>Subir archivo</h2>
+                          <input type="file" name="file">
+                          <p class="center"> <input type="submit" @click="enviarcorreo" value="Subir archivo" class="btn btn-block"> </p>
+                      </form>
+                        </v-row>
+                        <v-row>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue-grey" class="ma-2 white--text" @click="dialog=!dialog">Cancelar</v-btn>
+                            </v-card-actions>
+                        </v-row>
+                          </template>
+                        </v-file-input>
+                      </v-container>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
+             </v-layout>
+         </v-container>
+
+        <v-footer style="margin-top: 175px; background-color: #253339; height: 100px">
+          <v-row justify="center">
+            <v-col class=" text-center white--text" cols="12">{{ new Date().getFullYear() }} -
+              <strong>Administración y Programación de Sitios Web CUC </strong>
+            </v-col>
+          </v-row>
+        </v-footer>
+      </template>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"></script>
+  <script src="../js/VistaOfertaApp.js"></script>
+
+
+</body>
+
+</html>

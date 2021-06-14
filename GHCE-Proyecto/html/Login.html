@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>APSW C3-2020</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" type="text/css" href="../css/login.css" />
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <template>
+        <div class="contenido">
+          <br>
+          <br>
+          <br>
+          <br>
+          <v-container grid-list-xl>
+            <v-layout row wrap>
+
+              <v-flex md4>
+
+                  <v-card class="mx-auto" width="500px" height="400px" color="#25333a">
+                    <v-card class="mx-auto" max-width="800">
+                      <div class="cuadro1">
+                        Organización<br>
+                        Organiza de forma objetiva los horarios para centros<br>
+                        educativos de cualquier complejidad, aulas, profesores,<br>
+                        sesiones, etc.<br>
+                      </div>
+                    </v-card>
+                    <br>
+                    <br>
+                    <v-card class="mx-auto" max-width="800">
+                      <div class="cuadro2">
+                        Compatibilidad<br>
+                        GHC es compatible con la mayoría de las aplicaciones de<br>
+                        gestión académica utilizadas por los centros educativos.<br>
+                      </div>
+                    </v-card>
+                    <br>
+                    <br>
+                    <v-card class="mx-auto" max-width="800">
+                      <div class="cuadro3">
+                        Optimización de recursos<br>
+                        Compagina los requisitos académicos, con los recursos<br>
+                        humanos y materiales del centro docente.<br>
+                      </div>
+                    </v-card>
+                    <br>
+                    <br>
+                  </v-card>
+             
+              </v-flex>
+              <v-flex md4>
+
+                <v-card class="mx-auto" width="500px" height="400px" color="white">
+                  <div class="login">
+                    Inicio de Sesión
+                  </div>
+                  <br>
+                  <br>
+                  <v-col>
+                    <v-text-field label="ID de Usuario" outlined color="#00796b" v-model="id"></v-text-field>
+                  </v-col>
+                  <v-col>
+                    <v-text-field label="Contraseña" outlined color="#00796b" type="password" v-model="contra"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="9" md="6">
+                    <v-btn class="Btn1" @click="guardar">Ingresar</v-btn>
+                  </v-col>
+                </v-card>
+
+
+
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </div>
+      </template>
+
+      <template>
+        <div class="text-center ma-2">
+          <v-snackbar v-model="snackbar" absolute bottom color="success" outlined>
+            {{ textSnack }}
+            <v-btn color="primary" text @click="snackbar= !snackbar">Cerrar</v-btn>
+          </v-snackbar>
+        </div>
+      </template>
+
+
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script >var url = "../php/LoginBD.php";
+
+new Vue({
+  el: '#app',
+  vuetify: new Vuetify(),
+  data: {
+    id: '',
+    contra: '',
+    resp: {
+      nombre: ''
+    },
+    dire: '',
+    textSnack: '',
+    snackbar: false,
+    color: '',
+    Info: {
+      Id: '',
+      Contra: ''
+    }
+  },
+  methods: {
+    ValidarUser: function () {
+      axios.post(url, {
+        opcion: 1,
+        id: this.Info.Id,
+        contra: this.Info.Contra,
+      }).then(response => {
+        this.resp = response.data;
+        console.log(this.resp[0].nombre);
+        if (this.resp[0].nombre == 1) {
+        this.dire = "HorarioProfe.html?id="+this.Info.Id;
+          this.snackbar = true
+          this.textSnack = 'Inicio de sesion estudiante.'
+          this.color = true
+          this.enviarPagina();
+        } else if (this.resp[0].nombre == 2) {
+          this.dire = "HorarioEst.html?id="+this.Info.Id;
+          this.snackbar = true
+          this.textSnack = 'Inicio de sesion estudiante.'
+          this.color = true
+          this.enviarPagina();
+        } else if (this.resp[0].nombre == 3) {
+          this.dire = "VistaOferta.html?id="+this.Info.Id;
+          this.snackbar = true
+          this.textSnack = 'Inicio de sesion encargado de la oferta academica.'
+          this.color = true
+          this.enviarPagina();
+        } else if (this.resp[0].nombre == 4) {
+          this.dire = "grupos.html?id="+this.Info.Id;
+          this.snackbar = true
+          this.textSnack = 'Inicio de sesion encargado de distribucion.'
+          this.color = true
+          this.enviarPagina();
+        } else if (this.resp[0].nombre == 5) {
+          this.dire = "Solicitudes.html?id="+this.Info.Id;
+          this.snackbar = true
+          this.textSnack = 'Inicio de sesion director de carrera.'
+          this.color = true
+          this.enviarPagina();
+        } else if (this.resp[0].nombre == 10) {
+          this.snackbar = true
+          this.textSnack = 'Inicio de sesion incorrecto.'
+          this.color = false
+        }
+       
+      });
+
+    },
+
+    guardar() {
+      this.Info.Id = this.id
+      this.Info.Contra = this.contra
+      this.ValidarUser()
+    },
+    enviarPagina(){
+      window.location.href = '../html/'+this.dire;
+    }
+
+
+  },
+  computed: {
+
+  }
+}, )</script>
+
+</body>
+
+</html>

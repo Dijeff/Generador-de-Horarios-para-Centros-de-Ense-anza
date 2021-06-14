@@ -1,0 +1,93 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 0 10px 0;
+    padding-right: 10%;
+    overflow: hidden;
+    background-color: #00796b;
+    width: 100%;
+}
+
+li {
+    float: left;
+    padding-left: 9%;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+li a,
+.dropbtn {
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover,
+.dropdown:hover .dropbtn {
+    font-size: 20px;
+    color: #25333a;
+}
+
+li.dropdown {
+    display: inline-block;
+    color: white;
+}
+
+.dropdown-content {
+    color: white;
+    display: none;
+    position: absolute;
+    background-color: #374c56;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    color: #25333a;
+}
+
+.encabezado {
+    background-color: #24333a;
+    height: 100px;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    padding: 40px;
+}
+
+.contenido {
+    width: 90%;
+    height: 90%;
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+.menu {
+    float: left;
+    width: 25%;
+    height: 100%;
+    border: 1px solid black;
+    margin: 5px;
+    
+}
+
+.Mensajesmenu {
+    float: left;
+    width: 73%;
+    height: 100%;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+}

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px 0 10px 0;
+      padding-right: 10%;
+      overflow: hidden;
+      background-color: #00796b;
+      width: 100%;
+    }
+
+    li {
+      float: left;
+      padding-left: 9%;
+    }
+
+    li a,
+    .dropbtn {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover,
+    .dropdown:hover .dropbtn {
+      font-size: 20px;
+    }
+
+    li.dropdown {
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #374c56;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .contenido {
+      padding: 0% 10% 0% 10%
+    }
+
+    .encabezado {
+      background-color: #24333a;
+      height: 150px;
+      text-align: center;
+      color: white;
+      font-size: 40px;
+      padding: 40px;
+    }
+
+    .BotonCirculo1 {
+      background: #00709e;
+      padding: 0.5% 1.5% 0.5% 1.5%;
+      font-variant: small-caps;
+      text-align: center;
+      font-family: Arial;
+      border-style: none;
+      border-radius: 50%;
+      font-size: 25px;
+      color: white;
+      margin-left: 5px
+    }
+
+    .BotonCirculo2 {
+      background: #007520;
+      padding: 0.5% 1.5% 0.5% 1.5%;
+      font-variant: small-caps;
+      text-align: center;
+      font-family: Arial;
+      border-style: none;
+      border-radius: 50%;
+      font-size: 25px;
+      color: white;
+      margin-left: 5px
+    }
+
+    .BotonCirculo3 {
+      background: #960014;
+      padding: 0.5% 1.5% 0.5% 1.5%;
+      font-variant: small-caps;
+      text-align: center;
+      font-family: Arial;
+      border-style: none;
+      border-radius: 50%;
+      font-size: 25px;
+      color: white;
+      margin-left: 5px
+    }
+
+    .btn {
+      display: block;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      background: #00796B;
+      margin-left: 10px;
+      color: white;
+      font-size: 25px;
+    }
+    
+    
+    
+.disponible {
+    background-color: #5B8BDE;
+    color:white;
+    
+}
+
+.utilizada {
+    background-color: #73DE58;
+    color:white;
+    
+}
+
+.sobrepasa{
+    background-color: #DE615B;
+    color:white;
+    
+}
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+
+      <template>
+
+        <ul>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn" style="color:white">DISTRIBUCIÓN</a>
+            <div class="dropdown-content">
+              <a href="edificios2.html" style="color:white">Edificios y aulas</a>
+              <a href="grupos.html" style="color:white">Grupos</a>
+            </div>
+          </li>
+          <li class="dropdown" style="float:right">
+            <a href="javascript:void(0)" class="dropbtn" style="color:white">CUENTA</a>
+            <div class="dropdown-content">
+              <a style="color:white" onclick="location.href='Login.html'">Cerrar Seccíon</a>
+            </div>
+          </li>
+        </ul>
+
+
+
+
+
+        <div class="contenido">
+          <div class="encabezado">Asignación y Gestión de Grupos Manualmente{{cebe2}} </div>
+
+
+          <div class="row" style="margin: 50px 0 50px 0">
+
+            <h3 style="margin-left:150px">Disponible</h3> <button class="BotonCirculo1"><i
+                class="fas fa-stopwatch"></i></button>
+            <h3 style="margin-left:200px">Utilizada</h3> <button class="BotonCirculo2"><i
+                class="fas fa-stopwatch"></i></button>
+            <h3 style="margin-left:200px">Sobre pasa la capacidad</h3> <button class="BotonCirculo3"><i
+                class="fas fa-stopwatch"></i></button>
+
+          </div>
+          <div class="row" style="
+                      display: flex;
+  justify-content: center;
+  align-items: center;">
+            <P style="margin-left:10px"> Elegir carrera: </p>
+            <p style="margin-left:5px; margin-top: 50px">
+               <v-select  :items="carreras" item-text="descripcion" v-model="combobox.carrera" label="Solo field" solo></v-select>
+            </p>
+
+            <P style="margin-left:250px"> Elegir curso: </p>
+            <p style="margin-left:5px; margin-top: 50px">
+                          <v-select  :items="cursosa" item-text="descripcion3" v-model="combobox.curso" label="Solo field" solo></v-select>
+            </p>
+
+
+          </div>
+
+          <div class="row" style="width: 100%;">
+            <h1 style="margin-left:10px"> Grupos </h1> <button @click="dialog = !dialog" class="btn"><i
+                class="fas fa-stopwatch">+</i></button>
+            <p style="float:right; margin-left:600px">
+              <v-select v-model="cebe" v-on:change="funcion" :items="gruposs" label="Solo field" solo></v-select>
+            </p>
+          </div>
+
+
+          <div>
+              
+              
+              
+              
+              
+            <div class="row">
+                
+                
+                <template>
+                    
+                   
+  <v-data-table
+  style="width: 100%;"
+    :headers="headers"
+    :items="grupos"
+    :items-per-page="10"
+    item-key="cod_grupo"
+    dark
+    :footer-props="{
+      showFirstLastPage: true,
+      firstIcon: 'mdi-arrow-collapse-left',
+      lastIcon: 'mdi-arrow-collapse-right',
+      prevIcon: 'mdi-minus',
+      nextIcon: 'mdi-plus'
+    }"
+  >
+      
+    <template v-slot:item.accion=" {item} ">
+       
+        <v-btn class="mr-2" fab dark small color="error" @click="borrar(item)">
+          <v-icon dark>mdi-delete</v-icon>
+        </v-btn>
+      </template>  
+      
+  </v-data-table>
+  
+</template>
+          
+              
+              <div style="margin-top:50px">
+                <div class="row">
+                  <h1 style="margin-left:20px "> Aulas </h1>
+                  <p style="float:right; margin-left:695px">
+                    <v-select v-model="cebo" v-on:change="funcion2" :items="aulass" label="Solo field" solo></v-select>
+                  </p>
+                </div>
+              </div>
+
+  
+
+
+              <v-simple-table
+    fixed-header
+    height="500px"
+    dark
+  >
+                <template v-slot:default>
+                  <thead>
+                    <tr>
+                      <th class="text-left">Edificio</th>
+                      <th class="text-left">Horario</th>
+                      <th class="text-left">Aula</th>
+                      <th class="text-left">Tipo</th>
+                      <th class="text-left">Capacidad</th>
+                      <th class="text-left">Disponibilidad</th>
+                       <th class="text-left">Curso</th>
+                        <th class="text-left">Profesor</th>
+                      <th class="text-left">Grupo</th>
+                      <th class="text-left">Codigo de cambio</th>
+                      <th class="text-left">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="itemr in aulasc" >
+                       
+                      <td>{{ itemr.name }}</td>
+                      <td>{{ itemr.dia }}/{{ itemr.hora_inicio }}/{{ itemr.hora_fin }}</td>
+                       <td>{{ itemr.cod_aula }}</td>
+                        <td>{{ itemr.descripcion2 }}</td>
+                      <td>{{ itemr.capacidad }}</td>
+                       <td v-if="itemr.Disponibilidad==1" class="disponible">Disponible</td>
+                        <td v-else-if="itemr.Disponibilidad==2" class="utilizada">Utilizada</td>
+                         <td v-else-if="itemr.Disponibilidad==3" class="sobrepasa">Sobrepasa</td>
+                         <td>{{ itemr.grupodes }}</td>
+                        <td>{{ itemr.nombre_profesor }}</td>
+                      <td>{{ itemr.id_grupo }}</td>
+                      <td><v-select v-model="solicitud.grupo" :items="cambio" item-text="cod_grupo" label="Solo field" solo></v-select></td>
+                      <td> <v-btn color="teal accent-4"  class="ma-2 white--text" @click="enviar(itemr.cod_aula)" >Enviar Solicitud</v-btn></td>
+          
+                      
+                      
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+
+
+
+
+            </div>
+          </div>
+        </div>
+
+
+
+        <v-dialog v-model="dialog" max-width="500px">
+          <template v-slot:activator="{ on }"></template>
+
+          <v-card>
+            <v-card-title style="background-color: #00796B;color:white;">
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+
+                  <div class=" row w-100 align-items-center">
+                    <div class="col text-center">
+
+                      <div class="row">
+                        <P style="margin-left:10px"> Curso: </p>
+                        <p style="margin-left:100px">
+                          <v-select  :items="cursosa" item-text="descripcion3" v-model="editado.id_curso" label="Solo field" solo></v-select>
+                        </p>
+                      </div>
+                      <v-text-field color="purple darken-2" label="Descripcion:" v-model="editado.descripcion" required></v-text-field>
+                    
+                      
+                      <div class="row">
+                        <P style="margin-left:10px"> Tamaño: </p>
+                        <p style="margin-left:100px"> <input style="border: 2px solid black; "
+                            type="number" name="cantidad" min="1" max="30" v-model="editado.tamano"></p>
+                      </div>
+                      
+                      
+                       <div class="row">
+                        <P style="margin-left:10px"> Horario: </p>
+                        <p style="margin-left:100px">
+                          <v-select  :items="Horarios" item-text="nombre_profesor" v-model="editado.cod_horario" label="Solo field" solo></v-select>
+                        </p>
+                      </div>
+                      
+                      <div class="row">
+                        <P style="margin-left:10px"> Profesor: </p>
+                        <p style="margin-left:100px">
+                          <v-select  :items="profesores" item-text="nombre_profesor" v-model="editado.nombre_profesor" label="Solo field" solo></v-select>
+                        </p>
+                      </div>
+                      
+                       <div class="row">
+                        <P style="margin-left:10px"> Grupo: </p>
+                        <p style="margin-left:120px">
+                          <v-select  :items="gruposarr" item-text="id_grupo" v-model="editado.id_grupo" label="Solo field" solo></v-select>
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue-grey" class="ma-2 white--text" @click="dialog = !dialog">Cancelar</v-btn>
+              <v-btn color="teal accent-4" class="ma-2 white--text" @click="guardar">Guardar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+
+            
+                      <v-dialog v-model="dialog2" max-width="800px">
+            <template v-slot:activator="{ on }"></template>
+            <v-card>
+
+                <v-card-title class="teal darken-2 white--text justify-center">
+                    <span class="headline">{{formTitle2}}</span>
+                </v-card-title>
+                <v-card-text class="text--primary ">
+                    <v-card>
+                        <v-card-title primary-title width="100%">
+                              <v-text-field color="purple darken-2" label="Cedúla del solicitante:" v-model="solicitud.userenvio" required></v-text-field>
+                        </v-card-title>
+                    </v-card>
+                     </v-card-text>
+                     <v-card-text class="text--primary ">
+                    <v-card>
+                        <v-card-title primary-title width="100%">
+                            Enviar a:
+                              <v-select style="margin-top: 35px" :items="directores" item-text="correo"  v-model="solicitud.userrecibe" label="Solo field" solo></v-select>
+                                 
+                        </v-card-title>
+                    </v-card>
+                     </v-card-text>
+                <v-card-text class="text--primary">
+                    <v-card> 
+                        <v-card-title primary-title>
+                           Titulo: {{solicitud.titulo}}
+                        </v-card-title>
+                    </v-card>
+                </v-card-text>
+                </v-card-text>
+                <v-card-text class="text--primary">
+                    <v-card>
+                        <v-card-title primary-title>
+                            Asunto: {{solicitud.asunto}}
+                        </v-card-title>
+                    </v-card>
+                </v-card-text>
+                <v-card-text class="text--primary">
+                    <v-card>
+                        <v-card-title primary-title>
+                            Descripcion:
+                        </v-card-title>
+                        <v-card-text class=" text--black text--primary" >
+                            {{solicitud.mensaje}}<br>
+                            Detalles de cambio:<br>
+                            Grupo: {{solicitud.grupo}} cambio a Aula: {{solicitud.aula}}.
+                        </v-card-text>
+                    </v-card>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="teal darken-2" class="ma-2 white--text" elevation="13" @click="ingresarsoli">Aceptar</v-btn>
+                    <v-btn color="teal darken-2" class="ma-2 white--text" elevation="13" @click="dialog2 = !dialog2">Cancelar</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+ 
+
+
+        </v-app>
+        <template>
+            <div class="text-center ma-2">
+              <v-snackbar v-model="snackbar">
+                {{ textSnack }}
+                <v-btn color="primary" text @click="snackbar = false">Cerrar</v-btn>
+              </v-snackbar>
+            </div>
+          </template>
+
+
+
+        <v-footer style="margin-top: 300px; background-color: #253339; height: 100px">
+          <v-row justify="center">
+
+            <v-col class=" text-center white--text" cols="12">
+              {{ new Date().getFullYear() }} — <strong>Administración y Programación de Sitios Web CUC </strong>
+            </v-col>
+          </v-row>
+        </v-footer>
+      </template>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script >
+  var url = "../bd/crud3.php";
+   var url4 = "../bd/crud4.php";
+   var url5 = "../bd/crud5.php";
+   var urlEnvio = "../php/enviocorreo.php"
+    new Vue({
+     el: '#app',
+     vuetify: new Vuetify(),
+     data: {
+         
+          EnvioSMS: {
+            sms: '',
+            receptor:''
+        },
+        RespuestaCorreo: {
+            receptor: ''
+        },
+        Resultado: {
+            respuesta:''
+        },
+         
+         cebe: '',
+          cebo: '',
+         cebe2: '',
+         cebo2: '',
+        titulo:'',
+        snackbar: false,
+        textSnack: 'texto snackbar',
+         dialog: false,
+         dialog2: false,
+         Horarios: ['L-Manana','L-Tarde','L-Noche','M-Manana','M-Tarde','K-Noche','K-Manana','K-Tarde','J-Noche','J-Manana','J-Tarde','J-Noche','V-Manana','V-Tarde','V-Noche','S-Manana','S-Tarde','S-Noche'],
+         gruposs: ['Grupos con Aulas', 'Grupos sin Aulas'],
+         aulass: ['Aulas con grupo', 'Aulas sin grupo'],
+         grupos: [],
+         aulasc:[],
+          cambio:[],
+          directores:[],
+         carreras: [],
+          cursosa: [],
+         profesores:[],
+         gruposarr: [1,2,3,4],
+         combobox: {
+            carrera: '',
+            curso: '',
+        },
+        
+        
+        
+        
+         headers: [
+          {text: 'Codigo de cambio',align: 'start', value: 'cod_grupo',},
+          { text: 'Curso', value: 'descripcion3' },
+            {text: 'Grupo', value: 'id_grupo'},
+          { text: 'Dia', value: 'dia' },
+            { text: 'Hora Inicio', value: 'hora_inicio' },
+              { text: 'Hora Fin', value: 'hora_fin' },
+            {text: 'Aula', value: 'cod_aula'},
+          { text: 'Profesor', value: 'nombre_profesor' },
+          ,
+      { text: 'Eliminar grupo de aula',value: 'accion',sortable: false},
+        ],
+        solicitud: {
+            grupo: '',
+            aula: '',
+            userenvio: '',
+            userrecibe: '',
+            titulo: 'Solicitud de cambio',  
+            asunto: 'Cambio de grupo',
+            mensaje: 'Buenas, este mensaje es para solicitar el cambio de un grupo a un aula .Gracias.',
+        },
+         editado: {
+            descripcion: '',
+            tamano: '',
+            cod_horario: '',
+            nombre_profesor: '',
+            id_grupo: '',
+            id_curso: '',
+        },
+        defaultItem: {
+            Descripcion: '',
+            Tamano: '',
+            Cod_horario: '',
+            Nombre_profesor: '',
+            Id_grupo: '',
+            Id_curso: '',
+        },
+     },
+     created() {
+        this.listargrupos();
+        this.listaraulasg();
+          this.listarcursos();
+        this.listarprofesores();
+         this.listarcarreras();
+         this.listarcodigocambio();
+         this.listardirectores();
+        
+    },
+     methods: {
+         
+         //Procedimiento BORRAR.
+   
+ borrarTarea: function (ID,ID2) {
+      axios.post(url5, {
+        opcion: 1,
+        id: ID, id2: ID2
+      }).then(response => {
+         this.listargrupos();
+      });
+      
+      
+    },
+    borrar(item) {
+      const index = this.grupos.indexOf(item)
+
+      console.log("codigo"+this.grupos[index].cod_grupo) //capturo el id de la fila seleccionada 
+      var r = confirm("¿Está seguro de borrar el registro?");
+      if (r == true) {
+        this.borrarTarea(this.grupos[index].cod_grupo,this.grupos[index].cod_aula)
+        
+        this.snackbar = true
+        this.textSnack = 'Se eliminó el registro.'
+      } else {
+        this.snackbar = true
+        this.textSnack = 'Operación cancelada.'
+      }
+    },
+         
+         
+         
+           EnviarCorreo: function(){
+            axios.post(urlEnvio,{
+                sms: this.EnvioSMS.sms,
+                receptor: this.EnvioSMS.receptor
+            }).then(response => {
+                this.Resultado= response.data;
+            })
+        }, 
+        
+          enviarAgregarGrupo(){
+            this.EnvioSMS.receptor = "lbrenesv.apsw3@yahoo.com";
+            this.EnvioSMS.sms = "Se ha creado un nuevo grupo manualmente";
+            //this.CorreoDistribuidor()
+            this.EnviarCorreo()
+        },
+        
+        enviarCambiarGrupo(){
+            this.EnvioSMS.receptor = "lbrenesv.apsw3@yahoo.com";
+            this.EnvioSMS.sms = "Se ha solicitado un cambio de grupo a un aula en especifico";
+            //this.CorreoDistribuidor()
+            this.EnviarCorreo()
+            
+             this.EnvioSMS.receptor = "smirandam.apsw3@yahoo.com";
+            this.EnvioSMS.sms = "Se ha solicitado un cambio de grupo a un aula en especifico";
+            //this.CorreoDirector()
+            this.EnviarCorreo()
+        },
+         
+          getColor (calories) {
+        if (calories == 1) return 'red'
+        else if (calories == 2) return 'orange'
+        else return 'green'
+      },
+         
+         
+         funcion: function () {
+             if(this.cebe=="Grupos con Aulas")
+             {
+                this.listargrupos();
+             }
+             else
+             {
+                  this.listargrupossinaula();
+                 
+             }
+            },
+             funcion2: function () {
+             if(this.cebo=="Aulas con grupo")
+             {
+                this.listaraulasg();
+             }
+             else
+             {
+                  this.listaraulassing();
+                 
+             }
+            },
+          altaTarea: function () {
+            axios.post(url, {
+                opcion: 1,
+                descripcion: this.defaultItem.Descripcion,
+                tamano: this.defaultItem.Tamano,
+                cod_horario: this.defaultItem.Cod_horario,
+                nombre_profesor: this.defaultItem.Nombre_profesor,
+                  id_grupo: this.defaultItem.Id_grupo,
+                id_curso: this.defaultItem.Id_curso,
+            }).then(response => {
+                this.dialog = false;
+                this.snackbar = true;
+                this.textSnack = '¡Se inserto con exito!';
+                this.get_contacts();
+            });
+            this.defaultItem.Descripcion = "",
+                this.defaultItem.Tamano = "",
+                this.defaultItem.Cod_horario = "",
+                this.defaultItem.Nombre_profesor = "",
+                this.defaultItem.Id_curso = "",
+                this.defaultItem.Foto = "",
+                this.defaultItem.Id_grupo= "",
+                this.listargrupos();
+        },
+        
+        
+        ingresarsoli: function () {
+             if (this.solicitud.grupo == "" || this.solicitud.aula ==""|| this.solicitud.userenvio == "" || this.solicitud.userrecibe == "" || this.solicitud.titulo == "" || this.solicitud.asunto == "" || this.solicitud.mensaje == "" ) {
+                    this.snackbar = true
+                    this.textSnack = 'Mensaje incompleto.'
+                } else {
+                    
+                    
+            
+            axios.post(url4, {
+                opcion: 1,
+                grupo: this.solicitud.grupo,
+                aula: this.solicitud.aula,
+                userenvio: this.solicitud.userenvio,
+                userrecibe: this.solicitud.userrecibe,
+                  titulo: this.solicitud.titulo,
+                asunto: this.solicitud.asunto,
+                 mensaje: this.solicitud.mensaje,
+            }).then(response => {
+                this.dialog = false;
+                this.snackbar = true;
+                this.textSnack = '¡Se envio la solicitud con exito!';
+                this.get_contacts();
+                this.enviarCambiarGrupo();
+                
+            });
+            this.dialog2= false;
+                this.listargrupos();
+        }},
+        
+        
+          enviar(item) {
+      this.solicitud.aula=item
+      this.dialog2 = true
+    },
+         
+          cancelar() {
+            this.dialog = false
+            this.editado = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
+        },
+       guardar() {
+            if (this.editedIndex > -1) {
+                
+            } else {
+                //Guarda el registro en caso de Alta  
+ 
+                if (this.editado.descripcion == "" || this.editado.id_grupo ==""|| this.editado.tamano == "" || this.editado.cod_horario == "" || this.editado.nombre_profesor == "" || this.editado.id_curso == "" ) {
+                    this.snackbar = true
+                    this.textSnack = 'Datos incompletos.'
+                } else {
+                    this.defaultItem.Descripcion = this.editado.descripcion
+                    this.defaultItem.Tamano = this.editado.tamano
+                    this.defaultItem.Cod_horario = this.editado.cod_horario
+                    this.defaultItem.Nombre_profesor = this.editado.nombre_profesor
+                    this.defaultItem.Id_curso = this.editado.id_curso
+                     this.defaultItem.Id_grupo = this.editado.id_grupo
+                    this.snackbar = true
+                    this.textSnack = '¡Alta exitosa!'
+
+                    this.altaTarea()
+                    this.enviarAgregarGrupo()
+                }
+                 
+            }
+            this.cancelar
+        }, 
+ listarcodigocambio: function () {
+            fetch("../php/cambio.php")
+                .then(response => response.json())
+                .then(json => { this.cambio = json.contactos })
+        },
+        listardirectores: function () {
+            fetch("../php/directores.php")
+                .then(response => response.json())
+                .then(json => { this.directores = json.contactos })
+        },
+      listargrupos: function () {
+            fetch("../php/grupostabla.php")
+                .then(response => response.json())
+                .then(json => { this.grupos = json.contactos })
+        },
+        listargrupossinaula: function () {
+            fetch("../php/grupossintabla.php")
+                .then(response => response.json())
+                .then(json => { this.grupos = json.contactos })
+        },
+         listaraulasg: function () {
+            fetch("../php/aulastablasd.php")
+                .then(response => response.json())
+                .then(json => { this.aulasc = json.contactos2 })
+        },listaraulassing: function () {
+            fetch("../php/aulastablasd2.php")
+                .then(response => response.json())
+                .then(json => { this.aulasc = json.contactos2 })
+        },
+        
+        
+        listarcursos: function () {
+            fetch("../php/listarcursos.php")
+                .then(response => response.json())
+                .then(json => { this.cursosa = json.contactos3 })
+        },
+         listarprofesores: function () {
+            fetch("../php/listarprofesores.php")
+                .then(response => response.json())
+                .then(json => { this.profesores = json.contactos4 })
+        },listarcarreras: function () {
+            fetch("../php/listarcarreras.php")
+                .then(response => response.json())
+                .then(json => { this.carreras = json.contactos3 })
+        },
+       
+     
+      
+ 
+     },
+
+     computed: {
+         
+          formTitle() {
+       //operadores condicionales "condición ? expr1 : expr2"
+       // si <condicion> es true, devuelve <expr1>, de lo contrario devuelve <expr2>    
+       return this.editedIndex === -1 ? 'Ingresar manualmente grupos' : 'Ingresar manualmente grupos'
+     },
+      formTitle2() {
+            return this.editedIndex === -1 ? 'Enviar Solicutud' : 'Enviar Solicutud'
+        },
+    
+     }
+    
+ } )
+ </script>

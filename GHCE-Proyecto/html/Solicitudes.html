@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="../css/solicitudes.css" />
+
+    <title>Solicitudes</title>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-main>
+                <div>
+                    <ul>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn" style="color:white">Solicitudes</a>
+
+                        </li>
+                        <li class="dropdown" style="float:right">
+                            <a href="javascript:void(0)" class="dropbtn" style="color:white">CUENTA</a>
+                            <div class="dropdown-content">
+                                <a style="color:white" onclick="location.href='Login.html'">Cerrar Seccíon</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="encabezado"> Solicitudes </div>
+
+
+                <v-container grid-list-xl>
+                    <v-layout row wrap>
+
+                        <v-flex md4>
+
+                            <v-card class="mb-3" shaped>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-btn block color="#24333a" dark @click="visto = 1">
+                                            Solicitudes Pendientes
+                                        </v-btn>
+                                    </v-list-item-content>
+                                </v-list-item>
+
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-btn block color="#24333a" dark @click="visto = 2">
+                                            Solicitudes Aceptadas
+                                        </v-btn>
+                                    </v-list-item-content>
+                                </v-list-item>
+
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-btn block color="#24333a" dark @click="visto = 3">
+                                            Solicitudes Denegadas
+                                        </v-btn>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-card>
+
+                        </v-flex>
+
+                        <v-flex md15>
+
+                            <v-card class="mb-3" height="100%" elevation="12" v-if="visto == 1">
+                                <v-list-item v-for="solicitud of NuevosMensajes">
+                                    <v-list-item-content>
+                                        <v-btn block rounded color="#B2DFDB" text-color="black" @click="dialog = !dialog,  tip = 1, darTitulo, cod=solicitud.cod_solicitud , aula=solicitud.aula, grupo=solicitud.grupo">
+                                            {{solicitud.titulo}}</v-btn>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-card>
+
+                            <v-card class="mb-3" height="100%" elevation="12" v-if="visto == 2">
+                                <v-list-item v-for="solicitud of AceptadoMensajes">
+                                    <v-list-item-content>
+                                        <v-btn block rounded color="#B2DFDB" text-color="black" @click="dialog = !dialog, tip = 2, darTitulo,darAsunto,darDescripc ,cod=solicitud.cod_solicitud, aula=solicitud.aula, grupo=solicitud.grupo">
+                                            {{solicitud.titulo}}</v-btn>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-card>
+
+                            <v-card class="mb-3" height="100%" elevation="12" v-if="visto == 3">
+                                <v-list-item v-for="solicitud of DenegadoMensajes">
+                                    <v-list-item-content>
+                                        <v-btn block rounded color="#B2DFDB" text-color="black" @click="dialog = !dialog, tip = 3, darTitulo,darAsunto,darDescripc ,cod=solicitud.cod_solicitud, aula=solicitud.aula, grupo=solicitud.grupo">
+                                            {{solicitud.titulo}}</v-btn>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-card>
+
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+            </v-main>
+        </v-app>
+        <div>
+            <v-footer style="margin-top: 175px; background-color: #253339; height: 100px">
+                <v-row justify="center">
+                    <v-col class=" text-center white--text" cols="12">{{ new Date().getFullYear() }} -
+                        <strong>Administración y Programación de Sitios Web CUC </strong>
+                    </v-col>
+                </v-row>
+            </v-footer>
+        </div>
+
+        <v-dialog v-model="dialog" max-width="800px">
+            <template v-slot:activator="{ on }"></template>
+            <v-card>
+
+                <v-card-title class="teal darken-2 white--text justify-center">
+                    <span class="headline">Titulo</span>
+                </v-card-title>
+                <v-card-text class="text--primary ">
+                    <v-card>
+                        <v-card-title primary-title width="100%">
+                            Titulo: {{darTitulo}}
+                        </v-card-title>
+                    </v-card>
+                </v-card-text>
+                <v-card-text class="text--primary">
+                    <v-card>
+                        <v-card-title primary-title>
+                            Asunto: {{darAsunto}}
+                        </v-card-title>
+                    </v-card>
+                </v-card-text>
+                <v-card-text class="text--primary">
+                    <v-card>
+                        <v-card-title primary-title>
+                            Descripcion:
+                        </v-card-title>
+                        <v-card-text class=" text--black text--primary">
+                            {{darDescripc}}
+                        </v-card-text>
+                    </v-card>
+                </v-card-text>
+                <v-card-actions v-if="tip == 1">
+                    
+                    <v-spacer></v-spacer>
+                    <v-btn color="teal darken-2" class="ma-2 white--text" elevation="13" @click="aceptarSolicitud">Aceptar</v-btn>
+                    <v-btn color="teal darken-2" class="ma-2 white--text" elevation="13" @click="denegarSolicitud">Denegar</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        </v-app>
+        <template>
+            <div class="text-center ma-2">
+                <v-snackbar v-model="snackbar">
+                    {{ textSnack }}
+                    <v-btn color="primary" text @click="snackbar = false">Cerrar</v-btn>
+                </v-snackbar>
+            </div>
+        </template>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../js/appSolicitudes.js"></script>
+</body>
+
+</html>
